@@ -4,8 +4,6 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_r150o")
-particles_created = 150
-gravity_strength = 5000.0
 
 [node name="FlashTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -20,6 +18,9 @@ size_flags_horizontal = 4
 text = "BIG BANG"
 
 [node name="Particles" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
 
 [connection signal="timeout" from="FlashTimer" to="." method="_on_flash_timer_timeout"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
