@@ -1,8 +1,11 @@
 extends Node2D
 
+# load particle scene
 var particle_scene = preload("res://Scenes/particle.tscn")
+
 var centre_screen : Vector2
 
+var flash = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,7 +17,10 @@ func _process(delta: float) -> void:
 
 
 func _on_button_pressed() -> void:
-	print(centre_screen)
+	flash = true
+	queue_redraw()
+	$FlashTimer.start()
+	$Button.queue_free()
 	for i in range(100):
 		
 		var particle = particle_scene.instantiate()
@@ -30,3 +36,12 @@ func get_x_velocity():
 
 func get_y_velocity():
 	return randf_range(-100.0, 100.0)
+
+func _draw() -> void:
+	if flash:
+		draw_circle(centre_screen, 30, Color.WHITE)
+
+
+func _on_flash_timer_timeout() -> void:
+	flash = false
+	queue_redraw()
